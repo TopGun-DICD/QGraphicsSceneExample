@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+build/msvs2017/.vs/
+build/msvs2017/x64/
+bin/QGraphicsSceneExample.pdb
+bin/QGraphicsSceneExample.ilk
