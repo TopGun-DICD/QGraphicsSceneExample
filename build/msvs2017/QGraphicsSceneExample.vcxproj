@@ -152,6 +152,7 @@
     <ClInclude Include="..\..\sources\Item.hpp" />
     <ClInclude Include="..\..\sources\ItemConnection.hpp" />
     <ClInclude Include="..\..\sources\ItemPort.hpp" />
+    <ClInclude Include="..\..\sources\Logger.hpp" />
     <ClInclude Include="..\..\sources\Scene.hpp" />
     <ClInclude Include="..\..\sources\SceneEventFilter.hpp" />
     <ClInclude Include="..\..\sources\View.hpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\..\sources\Item_Green.cpp" />
     <ClCompile Include="..\..\sources\Item_Grey.cpp" />
     <ClCompile Include="..\..\sources\Item_Red.cpp" />
+    <ClCompile Include="..\..\sources\Logger.cpp" />
     <ClCompile Include="..\..\sources\Scene.cpp" />
     <ClCompile Include="..\..\sources\SceneEventFilter.cpp" />
     <ClCompile Include="..\..\sources\View.cpp" />

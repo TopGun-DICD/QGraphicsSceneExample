@@ -23,4 +23,6 @@ public:
   void UpdatePath();
   void UpdatePosFromPorts();
   int type() const { return Type; }
+  ItemPort *GetPotrA() { return p_portA; }
+  ItemPort *GetPotrB() { return p_portB; }
 };

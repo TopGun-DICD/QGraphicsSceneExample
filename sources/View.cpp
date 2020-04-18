@@ -9,6 +9,7 @@
 #include "ItemConnection.hpp"
 #include "SceneEventFilter.hpp"
 #include "CommonTypes.hpp"
+#include "Logger.hpp"
 
 View::View(QWidget *parent) : p_scene(nullptr), p_eventFilter(nullptr) {
   setAcceptDrops(true);
@@ -65,8 +66,7 @@ void View::dropEvent(QDropEvent *event) {
       p_item = new Item_Grey;
       break;
     default:
-      //TODO: Ругнуться в консоль и выйти
-      ;
+      Logger::Get()->Log("_warning_ : item with unknown or unsuported id was dropped");
   }
 
   if (p_item == nullptr) {

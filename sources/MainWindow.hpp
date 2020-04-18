@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QTextEdit>
 
 #include "CustomListWidget.hpp"
 
@@ -14,27 +15,19 @@ private:
                    *p_tabFlowWindows,
                    *p_tabConsole;
   CustomListWidget *p_itemListWidget;
-  /*
-  QAction      *p_actFileNew,
-    *p_actFileOpen,
-    *p_actFileSave,
-    *p_actFileExit,
-    *p_actViewFlowItems,
-    *p_actViewConsole,
-    *p_actToolsAccount,
-    *p_actHelpAbout;
-  */
-  //QTextEdit    *p_textConsole;
-  //LayoutDrawWidget *p_layout;
+  QTextEdit        *p_console;
+  QAction          *p_actFileNew,
+                   *p_actFileExit,
+                   *p_actHelpAbout;
 public:
   MainWindow();
-  ~MainWindow();
+ ~MainWindow();
 private:
   void InitMainUI();
   void InitActions();
   void InitMenubar();
   void InitToolbar();
-
+  void InitStatusbar();
 private slots:
   void OnMenu_File_Exit();
   void OnMenu_Help_About();

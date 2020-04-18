@@ -7,6 +7,7 @@
 #include "ItemConnection.hpp"
 #include "ItemPort.hpp"
 #include "Item.hpp"
+#include "Logger.hpp"
 
 SceneEventFilter::SceneEventFilter(QWidget *parent) : QObject(parent), p_scene(nullptr), p_connection(nullptr) {
 }
@@ -76,15 +77,36 @@ bool SceneEventFilter::eventFilter(QObject *object, QEvent *event) {
         ItemPort *p_portA = p_connection->p_portA;
         ItemPort *p_portB = static_cast<ItemPort *>(p_item);
 
-        if (p_portA->p_owner != p_portB->p_owner && p_portA->direction != p_portB->direction && !p_portA->IsConnectedWith(p_portB)) {
-          p_connection->SetPositionB(p_portB->scenePos());
-          p_connection->AssignPortB(p_portB);
-          p_connection->UpdatePath();
+        if (p_portA->p_owner == p_portB->p_owner) {
+          Logger::Get()->Error("You can't connect input and output of the same item.");
+          delete p_connection;
           p_connection = nullptr;
           return true;
         }
+
+        if (p_portA->direction == p_portB->direction) {
+          Logger::Get()->Error("You can't connect two ports of the same direction.");
+          delete p_connection;
+          p_connection = nullptr;
+          return true;
+        }
+
+        if (p_portA->IsConnectedWith(p_portB)) {
+          Logger::Get()->Error("These ports are already connected.");
+          delete p_connection;
+          p_connection = nullptr;
+          return true;
+        }
+
+        p_connection->SetPositionB(p_portB->scenePos());
+        p_connection->AssignPortB(p_portB);
+        p_connection->UpdatePath();
+        Logger::Get()->Log(QString("Two blocks are connected: '%1' and '%2'").arg(p_connection->GetPotrA()->GetOwner()->GetItemType(), p_connection->GetPotrB()->GetOwner()->GetItemType()));
+        p_connection = nullptr;
+        return true;
       }
 
+      Logger::Get()->Warning("You can connect only ports.");
       delete p_connection;
       p_connection = nullptr;
       return true;

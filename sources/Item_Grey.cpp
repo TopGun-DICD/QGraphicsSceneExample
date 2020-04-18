@@ -2,7 +2,8 @@
 
 #include <QPen>
 #include <QPainter>
-#include <QMessageBox>
+
+#include "Logger.hpp"
 
 Item_Grey::Item_Grey() : Item(it_itemGrey) {
   addInputPort();
@@ -17,6 +18,6 @@ void Item_Grey::paint_custom(QPainter *painter) {
 }
 
 bool Item_Grey::OnHandleEvent_Drop() {
-  QMessageBox::information(nullptr, QString("BLUE"), QString("Dropped, but will no be placed"));
+  Logger::Get()->Log("Item \"GREY\" was dropped, but will not be placed");
   return false;
 }

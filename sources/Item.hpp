@@ -12,7 +12,7 @@ public:
   ItemType                  itemType;
   QPainterPath              pathShape,
                             pathHeader;
-  QVector <ItemPort *>  inputPorts,
+  QVector <ItemPort *>      inputPorts,
                             outputPorts;
 public:
   Item(ItemType type);
@@ -24,6 +24,7 @@ public:
   void addOutputPort();
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   int type() const { return Type; }
+  virtual QString GetItemType() = 0;
 protected:
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
@@ -34,6 +35,7 @@ public:
 public:
   void paint_custom(QPainter *painter) final;
   bool OnHandleEvent_Drop();
+  QString GetItemType() { return "RED"; }
 };
 
 class Item_Green : public Item {
@@ -42,6 +44,7 @@ public:
 public:
   void paint_custom(QPainter *painter) final;
   bool OnHandleEvent_Drop();
+  QString GetItemType() { return "GREEN"; }
 };
 
 class Item_Blue : public Item {
@@ -50,6 +53,7 @@ public:
 public:
   void paint_custom(QPainter *painter) final;
   bool OnHandleEvent_Drop();
+  QString GetItemType() { return "BLUE"; }
 };
 
 class Item_Grey : public Item {
@@ -58,5 +62,6 @@ public:
 public:
   void paint_custom(QPainter *painter) final;
   bool OnHandleEvent_Drop();
+  QString GetItemType() { return "GREY"; }
 };
 

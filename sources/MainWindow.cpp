@@ -3,17 +3,31 @@
 #include <QDockWidget>
 #include <QTextEdit>
 #include <QListWidget>
+#include <QAction>
+#include <QMenuBar>
 
 #include "View.hpp"
+#include "Logger.hpp"
 
 MainWindow::MainWindow() : QMainWindow(nullptr) {
   setWindowTitle(tr("QGraphicsSceneExample"));
   resize(QSize(800, 600));
 
+  Logger::Init();
+
   InitMainUI();
+  Logger::Get()->AssignTextEdit(p_console);
+
+  InitActions();
+  InitMenubar();
+
+  Logger::Get()->Log("Hello!");
+  Logger::Get()->Log("Drop items from left docking widget into main area.");
+  Logger::Get()->Log("Then you can connect these items by connecting inputs with outputs.");
 }
 
 MainWindow::~MainWindow() {
+  Logger::Free();
 }
 
 void MainWindow::InitMainUI() {
@@ -39,9 +53,25 @@ void MainWindow::InitMainUI() {
   p_dockConsole->setAllowedAreas(Qt::BottomDockWidgetArea);
   p_tabConsole = new QTabWidget(this);
   p_tabConsole->setTabPosition(QTabWidget::South);
-  p_tabConsole->addTab(new QTextEdit(this), tr("Console"));
+  p_console = new QTextEdit(this);
+  p_console->setEnabled(false);
+  p_tabConsole->addTab(p_console, tr("Console"));
   p_dockConsole->setWidget(p_tabConsole);
   addDockWidget(Qt::BottomDockWidgetArea, p_dockConsole);
+}
+
+void MainWindow::InitActions() {
+  p_actFileExit = new QAction(tr("&Exit"), this);
+  //p_actFileExit->setShortcuts(QKeySequence::Quit);
+  p_actFileExit->setStatusTip(tr("Quit the application"));
+  connect(p_actFileExit, SIGNAL(triggered()), SLOT(OnMenu_File_Exit()));
+}
+
+void MainWindow::InitMenubar() {
+  QMenu *p_menuFile = menuBar()->addMenu(tr("&File"));
+  p_menuFile->addSeparator();
+  p_menuFile->addAction(p_actFileExit);
+
 }
 
 

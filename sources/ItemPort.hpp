@@ -19,7 +19,7 @@ public:
   enum { Type = QGraphicsItem::UserType + 2 };
   QVector<ItemConnection *> connections;
 public:
-  Item       *p_owner;
+  Item           *p_owner;
   PortDirection   direction;
   bool            isConnected;
 public:
@@ -29,4 +29,5 @@ public:
   bool IsConnectedWith(ItemPort *port);
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
   int type() const { return Type; }
+  Item *GetOwner() { return p_owner; }
 };

@@ -2,7 +2,8 @@
 
 #include <QPen>
 #include <QPainter>
-#include <QMessageBox>
+
+#include "Logger.hpp"
 
 Item_Red::Item_Red() : Item(it_itemRed) {
   addInputPort();
@@ -17,6 +18,6 @@ void Item_Red::paint_custom(QPainter *painter) {
 }
 
 bool Item_Red::OnHandleEvent_Drop() {
-  QMessageBox::information(nullptr, QString("RED"), QString("Dropped"));
+  Logger::Get()->Log("Item \"RED\" was dropped");
   return true;
 }
