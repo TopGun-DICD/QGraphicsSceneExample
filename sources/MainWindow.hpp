@@ -4,6 +4,7 @@
 #include <QTextEdit>
 
 #include "CustomListWidget.hpp"
+#include "View.hpp"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -15,6 +16,7 @@ private:
                    *p_tabFlowWindows,
                    *p_tabConsole;
   CustomListWidget *p_itemListWidget;
+  View             *p_view;
   QTextEdit        *p_console;
   QAction          *p_actFileNew,
                    *p_actFileExit,
@@ -29,6 +31,7 @@ private:
   void InitToolbar();
   void InitStatusbar();
 private slots:
+  void OnMenu_File_New();
   void OnMenu_File_Exit();
   void OnMenu_Help_About();
 };

@@ -14,7 +14,8 @@ private:
   SceneEventFilter *p_eventFilter;
 public:
   View(QWidget *parent);
-private:
+public:
+  void Clear();
 private slots:
   void dragEnterEvent(QDragEnterEvent *event) override;
   void dropEvent(QDropEvent *event) override;

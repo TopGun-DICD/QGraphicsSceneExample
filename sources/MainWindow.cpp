@@ -6,7 +6,6 @@
 #include <QAction>
 #include <QMenuBar>
 
-#include "View.hpp"
 #include "Logger.hpp"
 
 MainWindow::MainWindow() : QMainWindow(nullptr) {
@@ -32,7 +31,8 @@ MainWindow::~MainWindow() {
 
 void MainWindow::InitMainUI() {
   p_tabFlowItems = new QTabWidget(this);
-  p_tabFlowItems->addTab(new View(this), tr("New scene view"));
+  p_view = new View(this);
+  p_tabFlowItems->addTab(p_view, tr("New scene view"));
   setCentralWidget(p_tabFlowItems);
 
   p_dockFlowItems = new QDockWidget(tr("Item List"), this);
@@ -61,6 +61,10 @@ void MainWindow::InitMainUI() {
 }
 
 void MainWindow::InitActions() {
+  p_actFileNew = new QAction(tr("&New"), this);
+  //p_actFileExit->setShortcuts(QKeySequence::Quit);
+  p_actFileNew->setStatusTip(tr("Clear view and create new"));
+  connect(p_actFileNew, SIGNAL(triggered()), SLOT(OnMenu_File_New()));
   p_actFileExit = new QAction(tr("&Exit"), this);
   //p_actFileExit->setShortcuts(QKeySequence::Quit);
   p_actFileExit->setStatusTip(tr("Quit the application"));
@@ -69,11 +73,15 @@ void MainWindow::InitActions() {
 
 void MainWindow::InitMenubar() {
   QMenu *p_menuFile = menuBar()->addMenu(tr("&File"));
+  p_menuFile->addAction(p_actFileNew);
   p_menuFile->addSeparator();
   p_menuFile->addAction(p_actFileExit);
 
 }
 
+void MainWindow::OnMenu_File_New() {
+  p_view->Clear();
+}
 
 void MainWindow::OnMenu_File_Exit() {
   close();

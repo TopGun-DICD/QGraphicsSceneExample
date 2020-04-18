@@ -23,6 +23,12 @@ View::View(QWidget *parent) : p_scene(nullptr), p_eventFilter(nullptr) {
 
 }
 
+void View::Clear() {
+  p_scene->clear();
+  items().clear();
+  viewport()->update();
+}
+
 void View::dragEnterEvent(QDragEnterEvent *event) {
   if (event->mimeData()->hasFormat("application/x-dnditemdata")) {
     if (event->source() == this) {
